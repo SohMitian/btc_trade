@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャート</title>
+</head>
+<body>
+    <h1>チャート</h1>
+    <div id="app">
+        <trading-vue :data="this.$data"></trading-vue>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/trading-vue-js@0.4.4/dist/trading-vue.min.js"></script>
+    <script type="text/javascript">
+        const TradingVue = window['TradingVueJs'].TradingVue;
+        new Vue({
+            el: '#app',
+            components: {
+                'trading-vue': TradingVue
+            },
+            data: {
+                ohlcv: [
+                [ 1551128400000, 33,  37.1, 14,  14,  196 ],
+                [ 1551132000000, 13.7, 30, 6.6,  30,  206 ],
+                [ 1551135600000, 29.9, 33, 21.3, 21.8, 74 ],
+                [ 1551139200000, 21.7, 25.9, 18, 24,  140 ],
+                [ 1551142800000, 24.1, 24.1, 24, 24.1, 29 ],
+                ]
+            }
+            });
+    </script>
+    <script>
+        var request = new XMLHttpRequest();
+ 
+        request.open('GET', 'https://api.cryptowat.ch/markets/bitflyer/btcjpy/ohlc', true);
+        request.responseType = 'json';
+        request.onload = function () {
+            var data = this.response;
+            console.log(data);
+        };
+
+        request.send();
+    </script>
+</body>
+</html>
